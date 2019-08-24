@@ -3,6 +3,7 @@ server:
 spring:
   application:
     name: demo-k8s
+    version: @project.version@
 
 management:
   endpoints:
