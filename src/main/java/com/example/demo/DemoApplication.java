@@ -36,7 +36,7 @@ class HelloResource {
     @GetMapping("/hello/{name}")
     public ResponseEntity<String> sayHello(@PathVariable String name) {
         String greeting = String.format("Hey %s !", name);
-        log.info("{} - Receive param {}", greeting, MDC.get("X-B3-TraceId"));
+        log.info("TraceId :{} - Receive param {}", MDC.get("X-B3-TraceId"), greeting);
         return ResponseEntity.ok(greeting);
     }
 
