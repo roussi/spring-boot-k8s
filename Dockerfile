@@ -12,4 +12,4 @@ COPY ${DEPENDENCY}/BOOT-INF/classes ${appDir}
 
 EXPOSE 8081 5005
 
-ENTRYPOINT ["java","-cp","com/example/demo/*:lib/*:.","com.example.demo.DemoApplication"]
+ENTRYPOINT ["java","-cp","com/aroussi/demo/*:lib/*:.","com.aroussi.demo.DemoApplication"]

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: demo-app
-        image: aroussisvg/demo-k8s:0.1.0
+        image: aroussisvg/demo-k8s:0.2.0
         ports:
         - containerPort: 8081
 ---
@@ -33,3 +33,14 @@ spec:
       targetPort: 8081
       nodePort: 30008
   type: LoadBalancer
+
+---
+apiVersion: policy/v1beta1
+kind: PodDisruptionBudget
+metadata:
+  name: demo-pdb
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: demo-app
