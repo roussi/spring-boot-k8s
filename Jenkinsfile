@@ -4,17 +4,22 @@ pipeline {
     stages {
         stage('Compile') {
             steps {
-                echo '==== Compiling project ===='
+                sh './mvnw clean compile'
             }
         }
         stage('Unit Tests') {
             steps {
-                echo '==== Running unit testing ===='
+                sh './mvnw clean test'
             }
         }
         stage('Functional Tests') {
             steps {
                 echo '==== Running functional tests ===='
+            }
+        }
+        stage('Sonar checks') {
+            steps {
+                echo '==== Running sonar checks ===='
             }
         }
         stage('Building artifact') {
