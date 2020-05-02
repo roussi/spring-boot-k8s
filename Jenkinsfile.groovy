@@ -1,9 +1,9 @@
 pipeline {
     agent any
-    sendMail("roussi.learning@gmail.com", "", "Started")
     stages {
         stage('Compile') {
             steps {
+                sendMail('roussi.learning@gmail.com', '', 'Started')
                 sh './mvnw clean compile'
             }
         }
@@ -30,7 +30,7 @@ pipeline {
         stage('Deploying artifact') {
              steps {
                  echo '==== Deploying artifact ===='
-                 sendMail("roussi.learning@gmail.com", "", "Finished")
+                 sendMail('roussi.learning@gmail.com', '', 'Finished')
              }
         }
     }
