@@ -1,6 +1,6 @@
 pipeline {
     agent any
-
+    sendMail("roussi.learning@gmail.com", "", "Started")
     stages {
         stage('Compile') {
             steps {
@@ -30,7 +30,18 @@ pipeline {
         stage('Deploying artifact') {
              steps {
                  echo '==== Deploying artifact ===='
+                 sendMail("roussi.learning@gmail.com", "", "Finished")
              }
         }
     }
+}
+
+def sendMail(to,msg,status) {
+    emailext(
+            to: "${to}",
+            subject: " ${env.JOB_NAME}[${env.BUILD_NAME}] is ${status}",
+            body: """
+                ${msg}, to see complete details about the build see <a href='${env.BUILD_URL}'> ${env.BUILD_NAME} </a>
+            """
+    )
 }
