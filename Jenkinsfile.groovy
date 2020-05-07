@@ -10,6 +10,7 @@ pipeline {
         stage('Unit Tests') {
             steps {
                 sh './mvnw clean test'
+                junit 'target/surfire-reports/TEST-*.xml'
             }
         }
         stage('Functional Tests') {
@@ -39,7 +40,7 @@ pipeline {
 def sendMail(to,msg,status) {
     emailext(
             to: "${to}",
-            subject: " ${env.JOB_NAME}[${env.BUILD_NAME}] is ${status}",
+            subject: "${env.JOB_NAME} [${env.BUILD_NAME}] is ${status}",
             body: """
                 ${msg}, to see complete details about the build see <a href='${env.BUILD_URL}'> ${env.BUILD_NAME} </a>
             """
