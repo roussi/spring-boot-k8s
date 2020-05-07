@@ -9,8 +9,7 @@ pipeline {
         }
         stage('Unit Tests') {
             steps {
-                sh './mvnw clean test'
-                junit 'target/surfire-reports/TEST-*.xml'
+                echo '==== Running unit test ====='
             }
         }
         stage('Functional Tests') {
@@ -26,6 +25,8 @@ pipeline {
         stage('Building artifact') {
            steps {
                echo '==== Building artifact ===='
+               sh './mvnw clean package'
+               junit 'target/surefire-reports/TEST-*.xml'
            }
         }
         stage('Deploying artifact') {
@@ -42,7 +43,7 @@ def sendMail(to,msg,status) {
             to: "${to}",
             subject: "${env.JOB_NAME} [${env.BUILD_NAME}] is ${status}",
             body: """
-                ${msg}, to see complete details about the build see <a href='${env.BUILD_URL}'> ${env.BUILD_NAME} </a>
+                ${msg}, to see complete details about the build see <a href='${env.BUILD_URL}'> ${env.BUILD_TAG} </a>
             """
     )
 }
